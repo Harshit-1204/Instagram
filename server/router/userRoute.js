@@ -16,12 +16,12 @@ router.get("/", loginRequired, (req, res) => {
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
-    return res.status(422).json({ Error: "Please Add All Fields" });
+    return res.status(422).json({ error: "Please Add All Fields" });
   }
 
   User.findOne({ email: email }, (err, foundUser) => {
     if (foundUser) {
-      res.json({ message: "User already exist  with this email" });
+      return res.json({ message: "User already exist  with this email" });
     } else {
       bcrypt.hash(password, 12).then((hashPassword) => {
         const user = new User({
@@ -33,8 +33,9 @@ router.post("/signup", (req, res) => {
         user
           .save()
           .then((result) => {
-            res.json({ meaasge: "Succesfully Signed in" });
             console.log(result);
+            return res.json({ message: "Succesfully Signed up" });
+            
           })
           .catch((err) => {
             console.log(err);
@@ -64,8 +65,8 @@ router.post("/signin", (req, res) => {
               { _id: foundUser._id },
               process.env.JWT_SECRET
             );
-            //res.json({message:"Succesfully signed in"})
-            return res.json({ token });
+            
+            return res.json({ token ,message:"Succesfully signed in" });
           }
         })
         .catch((error) => {

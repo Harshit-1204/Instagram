@@ -1,9 +1,10 @@
-GET http://localhost:3000/mypost
+POST  http://localhost:5000/signup
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDg5NGQxYzU3NDI1NDA1ZWM4ZjhkNmQiLCJpYXQiOjE2MTk2MTA5MjZ9.FgOgAufnwq1UT7yWNyi0IL9WgESYnSiadyayEGl9M7Q
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDg5NGQxYzU3NDI1NDA1ZWM4ZjhkNmQiLCJpYXQiOjE2MTk2MTA5MjZ9.FgOgAufnwq1UT7yWNyi0IL9WgESYnSiadyayEGl9M7Q
 
 
 {
-    "title":"jay",
-    "body":"ixbeiw"
+    
+    "email":"ixbeiw",
+    "password":"ixbeiw"
 }
