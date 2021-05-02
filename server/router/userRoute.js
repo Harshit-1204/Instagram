@@ -66,7 +66,7 @@ router.post("/signin", (req, res) => {
               process.env.JWT_SECRET
             );
             
-            return res.json({ token ,message:"Succesfully signed in" });
+            return res.json({ token ,message:"Succesfully signed in",user:req.user });
           }
         })
         .catch((error) => {
@@ -77,8 +77,8 @@ router.post("/signin", (req, res) => {
 });
 
 router.post("/createpost", loginRequired, (req, res) => {
-  const { title, body } = req.body;
-  if (!title || !body) {
+  const { title, body ,pic } = req.body;
+  if (!title || !body || !pic) {
     return res.status(422).json({ Error: "Please Add All Fields" });
   }
 
@@ -87,6 +87,7 @@ router.post("/createpost", loginRequired, (req, res) => {
     title,
     body,
     postedBy: req.user,
+    photo: pic
   });
 
   post.save()

@@ -24,8 +24,11 @@ function Signin() {
       if(result.error){
         alert(result.error)
       }if(result.message){
-        console.log(result.token)
+
+        localStorage.setItem("jwt",result.token)
+        localStorage.setItem("user",JSON.stringify(result.user))
         alert(result.message)
+
         
         history.push("/")
       }
