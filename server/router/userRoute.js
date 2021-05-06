@@ -57,8 +57,7 @@ router.post("/signin", (req, res) => {
     if (!foundUser) {
       res.json({ error: "No user found With this email" });
     } else {
-      bcrypt
-        .compare(password, foundUser.password)
+      bcrypt.compare(password, foundUser.password)
         .then((result) => {
           if (result) {
             const token = jwt.sign(
@@ -66,7 +65,8 @@ router.post("/signin", (req, res) => {
               process.env.JWT_SECRET
             );
             
-            return res.json({ token ,message:"Succesfully signed in",user:req.user });
+            const {name , email, _id} = foundUser;
+             res.json({ token ,user:{name , email ,_id} });
           }
         })
         .catch((error) => {
@@ -100,10 +100,10 @@ router.get("/allpost",loginRequired,(req,res)=>{
   Post.find({})
   .populate("postedBy" ,"name email _id")
   .then((result)=>{
-    res.json(result)
+    return res.json(result)
   })
   .catch(err=>{
-    console.log(err)
+    return console.log(err)
   })
 });
 

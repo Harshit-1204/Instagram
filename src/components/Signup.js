@@ -55,7 +55,7 @@ function Signup() {
           }}
         />
         <input
-          type="text"
+          type="password"
           placeholder="Password"
           name="password"
           value={password}

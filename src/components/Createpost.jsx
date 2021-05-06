@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react";
+import {useHistory} from "react-router-dom"
 
 function Createpost() {
 
@@ -7,6 +8,7 @@ function Createpost() {
       const [image, setImage] = useState("")
       const [url , setUrl] = useState("")
 
+      const history = useHistory()
 
     useEffect(()=>{if(url){
       fetch("http://localhost:5000/createpost",{
@@ -24,7 +26,8 @@ function Createpost() {
     .then(res=>res.json())
     .then(result=>console.log(result))
     .catch(err=>console.log(err))
-    }},[url,body,title])
+    history.push("/")
+    }},[url,body,title,history])
 
   const postImage=()=>{
     
