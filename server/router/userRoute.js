@@ -126,13 +126,16 @@ router.put("/like", loginRequired, (req, res) => {
     {
       new: true,
     }
-  ).exec((err, result) => {
-    if (err) {
-      return res.status(422).json({ error: err });
-    } else {
-      res.json(result);
-    }
-  });
+  )
+    .populate("postedBy", "name _id")
+    .populate("comments.postedBy", "_id name")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result);
+      }
+    });
 });
 router.put("/unlike", loginRequired, (req, res) => {
   Post.findByIdAndUpdate(
@@ -143,13 +146,16 @@ router.put("/unlike", loginRequired, (req, res) => {
     {
       new: true,
     }
-  ).exec((err, result) => {
-    if (err) {
-      return res.status(422).json({ error: err });
-    } else {
-      res.json(result);
-    }
-  });
+  )
+    .populate("postedBy", "name _id")
+    .populate("comments.postedBy", "_id name")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      } else {
+        res.json(result);
+      }
+    });
 });
 
 router.put("/comment", loginRequired, (req, res) => {
@@ -180,20 +186,89 @@ router.put("/comment", loginRequired, (req, res) => {
     });
 });
 
-router.put("/delete",loginRequired,(req,res)=>{
-  Post.findById(req.body.postId , (err,post)=>{
-
-    
-    if(post.postedBy._id.toString()===req.user._id.toString()){
-      
-      post.remove()
-      res.json({message:"Succesfuly removed post" ,post})
-    }else if(err){
-      res.status(422).json({message:"Post not Found" , error:err})
+router.put("/delete/:postId", loginRequired, (req, res) => {
+  Post.findById(req.params.postId, (err, post) => {
+    if (post.postedBy._id.toString() === req.user._id.toString()) {
+      post.remove();
+      res.json({ message: "Succesfuly removed post", post });
+    } else if (err) {
+      res.status(422).json({ message: "Post not Found", error: err });
     }
+  });
+});
 
-  })
-  
+router.get("/user/:id", loginRequired, (req, res) => {
+  User.findById(req.params.id)
+    .select("-password")
+    .then((user) => {
+      Post.find({ postedBy: req.params.id })
+        .populate("postedBy", "name _id email")
+        .exec((err, post) => {
+          if (err) {
+            return res.status(422).json({ error: err });
+          } else {
+            res.json({ user, post });
+          }
+        });
+    })
+    .catch((err) => {
+      return res.status(404).json({ message: "User not found" });
+    });
+});
+
+router.put('/follow',loginRequired,(req,res)=>{
+  User.findByIdAndUpdate(req.body.followId,{
+      $push:{followers:req.user._id}
+  },{
+      new:true
+  },(err,result)=>{
+      if(err){
+          return res.status(422).json({error:err})
+      }
+    User.findByIdAndUpdate(req.user._id,{
+        $push:{following:req.body.followId}
+        
+    },{new:true}).select("-password").then(result=>{
+        res.json(result)
+    }).catch(err=>{
+        return res.status(422).json({error:err})
+    })
+
+  }
+  )
 })
+
+router.put("/unfollow", loginRequired, (req, res) => {
+  User.findByIdAndUpdate(
+    req.body.unfollowId,
+    {
+      $pull: { followers: req.user._id },
+    },
+    {
+      new: true,
+    },
+    (err, result) => {
+      if (err) {
+        return res.status(422).json({ error: err });
+      }
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $pull: { following: req.body.unfollowId },
+        },
+        { new: true }
+      )
+        .select("-password")
+        .then((result) => {
+          
+          res.json(result);
+        })
+        .catch((err) => {
+          return res.status(422).json({ error: err });
+        });
+    }
+  );
+});
+
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import React ,{useEffect,createContext ,useReducer ,useContext} from "react"
+import React ,{useEffect, createContext ,useReducer ,useContext} from "react"
 import {BrowserRouter as Router ,Route ,useHistory , Switch} from "react-router-dom"
 import Nav from "./components/nav";
 import "./App.css"
@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
 import Signin from "./components/Signin"
+import Userprofile from "./components/Userpofile"
 import Createpost from "./components/Createpost";
 import {reducer,initialState} from "./reducers/userReducers"
 
@@ -31,10 +32,11 @@ const Routing =()=>{
 
   return <Switch>
     <Route path="/" exact component={Home} />
-      <Route path="/profile" component={Profile}/>
+      <Route path="/profile" exact component={Profile}/>
       <Route path="/signin" component={Signin} />
       <Route path="/signup" component={Signup} />
       <Route path="/createpost" component={Createpost} />
+      <Route path="/profile/:userId" component={Userprofile} />
   </Switch>
 }
 

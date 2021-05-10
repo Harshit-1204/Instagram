@@ -29,9 +29,9 @@ function Profile() {
         <div className="profile-info">
           <h5>{state ? state.name : "loading.."}</h5>
           <div className="reach">
-            <p>0 post</p>
-            <p>0 followers</p>
-            <p>0 following</p>
+            <p>{myPosts.length} post</p>
+            <p>{state?state.followers.length:"0"} followers</p>
+            <p>{state?state.following.length:"0"} following</p>
           </div>
         </div>
       </div>

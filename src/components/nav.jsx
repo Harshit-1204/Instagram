@@ -14,7 +14,7 @@ function Nav() {
         <li key="2">
           <Link to="/createpost">Create Post</Link>
         </li>,
-        <button key="3" className="btn  #42a5f5 blue lighten-1" onClick={
+        <button key="3" className="btn " onClick={
           () => {
             localStorage.clear()
             dispatch({ type: "LOGOUT" })

@@ -53,7 +53,7 @@ function Createpost() {
   
   return (
     <div className="card my-card">
-        <h2>Instagram</h2>  
+        <h2>Create Your Post</h2>  
         <input type="text" placeholder="Title" name="title" value={title} onChange={(e)=>setTitle(e.target.value)} />
         <input type="text" placeholder="Body" name="body" value={body} onChange={(e)=>setBody(e.target.value)}/>
 
