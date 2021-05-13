@@ -48,7 +48,6 @@ function App() {
       <Router>
         <Nav />
         <Routing /> 
-        
       </Router>
     </UserContext.Provider>
     

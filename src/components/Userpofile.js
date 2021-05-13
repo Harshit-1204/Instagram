@@ -108,7 +108,7 @@ function Userprofile() {
               <div className="reach">
                 <p>{userProfile.post.length} Posts </p>
                 <p>{userProfile.user.followers.length} Followers</p>
-                <p>{userProfile.user.following.length} Followers</p>
+                <p>{userProfile.user.following.length} Followings</p>
               </div>
               {showFollow ? (
                 <button

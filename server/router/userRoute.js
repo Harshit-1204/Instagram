@@ -65,8 +65,8 @@ router.post("/signin", (req, res) => {
               process.env.JWT_SECRET
             );
 
-            const { name, email, _id } = foundUser;
-            res.json({ token, user: { name, email, _id } });
+            const { name, email, _id,followers,following } = foundUser;
+            res.json({ token, user: { name, email, _id,followers,following } });
           }
         })
         .catch((error) => {

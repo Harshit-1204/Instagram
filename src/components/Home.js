@@ -18,6 +18,7 @@ function Home() {
       .then((res) => res.json())
       .then((result) => {
         setPosts(result);
+        console.log(result);
       })
       .catch((err) => console.log(err));
   }, [posts]);
@@ -125,7 +126,6 @@ function Home() {
         });
 
         setPosts(newPosts);
-        
       })
       .catch((err) => console.log(err));
   };
@@ -134,7 +134,7 @@ function Home() {
       {posts.map((post) => (
         <div className="home-post" key={post._id}>
           <div className="post-container">
-            <h5 className="name" style={{color:"black"}}>
+            <h5 className="name" style={{ color: "black" }}>
               <Link
                 to={
                   state._id !== post.postedBy._id
