@@ -9,9 +9,7 @@ const loginRequired = require("../middleware/requireLogin");
 const Post = require("../models/post");
 const { populate } = require("../models/post");
 
-router.get("/", loginRequired, (req, res) => {
-  res.send("welcome");
-});
+
 
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
@@ -100,6 +98,17 @@ router.post("/createpost", loginRequired, (req, res) => {
 
 router.get("/allpost", loginRequired, (req, res) => {
   Post.find({})
+    .populate("postedBy", "name email _id")
+    .populate("comments.postedBy", "name _id")
+    .then((result) => {
+      return res.json(result);
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+});
+router.get("/followingspost", loginRequired, (req, res) => {
+  Post.find({postedBy:{$in:req.user.following}})
     .populate("postedBy", "name email _id")
     .populate("comments.postedBy", "name _id")
     .then((result) => {
