@@ -7,8 +7,8 @@ function Userprofile() {
 
   const { userId } = useParams();
 
-  const { dispatch } = useContext(UserContext);
-  const [showFollow, setShowFollow] = useState(true);
+  const {state,  dispatch } = useContext(UserContext);
+  const [showFollow, setShowFollow] = useState(state? !state.following.includes(userId) : true);
   useEffect(() => {
     fetch(`http://localhost:5000/user/${userId}`, {
       method: "get",
@@ -99,8 +99,8 @@ function Userprofile() {
           <div className="box-1">
             <div className="profile-img">
               <img
-                src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"
-                alt=""
+                src={userProfile.user.pic}
+                alt="Profile Pic"
               ></img>
             </div>
             <div className="profile-info">

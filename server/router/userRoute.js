@@ -12,7 +12,7 @@ const { populate } = require("../models/post");
 
 
 router.post("/signup", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password ,pic} = req.body;
   if (!name || !email || !password) {
     return res.status(422).json({ error: "Please Add All Fields" });
   }
@@ -26,6 +26,7 @@ router.post("/signup", (req, res) => {
           name,
           email,
           password: hashPassword,
+          pic
         });
 
         user
@@ -63,8 +64,8 @@ router.post("/signin", (req, res) => {
               process.env.JWT_SECRET
             );
 
-            const { name, email, _id,followers,following } = foundUser;
-            res.json({ token, user: { name, email, _id,followers,following } });
+            const { name, email, _id,followers,following ,pic} = foundUser;
+            res.json({ token, user: { name, email, _id,followers,following,pic } });
           }
         })
         .catch((error) => {

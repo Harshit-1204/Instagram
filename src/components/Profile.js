@@ -22,8 +22,7 @@ function Profile() {
       <div className="box-1">
         <div className="profile-img">
           <img
-            src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg"
-            alt="Profile Pic"
+            src={state ? state.pic:"Loading"} alt="Profile Pic"
           ></img>
         </div>
         <div className="profile-info">

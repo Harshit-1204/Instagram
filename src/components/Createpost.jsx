@@ -44,13 +44,8 @@ function Createpost() {
     .then(res=>res.json())
     .then(result=>setUrl(result.url))
     .catch(err=>console.log(err))
-
-
-    
-
   }
 
-  
   return (
     <div className="card my-card">
         <h2>Create Your Post</h2>  
@@ -59,7 +54,7 @@ function Createpost() {
 
       <div className="file-field input-field">
         <div className="btn">
-          <span>File</span>
+          <span>Upload Photo</span>
           <input type="file" onChange={(e)=>setImage(e.target.files[0])}/>
         </div>
         <div className="file-path-wrapper">

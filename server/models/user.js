@@ -16,8 +16,16 @@ const userSchema= new mongoose.Schema({
         type:String,
         require:true
     },
-    followers:[{type:ObjectId,ref:"User"}],
-    following:[{type:ObjectId,ref:"User"}]
+    followers:[
+        {type:ObjectId,ref:"User"}
+    ],
+    following:[
+        {type:ObjectId,ref:"User"}
+    ],
+    pic:{
+        type:String,
+        default:"https://res.cloudinary.com/harshit-cloud/image/upload/v1621490661/User-512_jimgyi.png"
+    }
 
     
 })

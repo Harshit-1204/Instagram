@@ -21,7 +21,7 @@ function Home() {
         console.log(result);
       })
       .catch((err) => console.log(err));
-  }, [posts]);
+  }, []);
 
   const likePost = (id) => {
     fetch("/like", {
